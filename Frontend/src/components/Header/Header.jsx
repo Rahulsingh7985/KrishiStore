@@ -1,162 +1,264 @@
 import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import UserContext from "../../context/UserContext";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogOut, User, Home, Info, Phone, BarChart3, Settings } from "lucide-react";
 
-export default function Header() {
+export default function ModernHeader() {
   const { user, logout } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const closeMenu = () => setIsOpen(false);
 
   const handleLogout = () => {
-    if (window.confirm("Are you sure you want to logout?")) {
+    if (window.confirm("क्या आप लॉगआउट करना चाहते हैं?")) {
       logout();
       closeMenu();
     }
   };
 
+  const navLinks = [
+    { path: "/", label: "🏠 होम" },
+    { path: "/about", label: "ℹ️ परिचय" },
+    { path: "/contact", label: "📞 संपर्क" },
+  ];
+
   return (
-    <header className="shadow sticky z-50 top-0 bg-white">
-      <nav className="border-gray-200">
-        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl px-4 py-3">
+    <header className="sticky top-0 z-50 backdrop-blur-xl bg-gradient-to-r from-slate-900/95 via-green-900/95 to-slate-900/95 border-b border-green-500/20 shadow-2xl">
+      <style>{`
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .nav-item { transition: all 0.3s ease; }
+        .nav-item:hover { transform: translateY(-2px); }
+        .menu-slide { animation: slideDown 0.3s ease-out; }
+        .btn-hover { transition: all 0.2s ease; }
+        .btn-hover:hover { transform: scale(1.05); }
+        .btn-hover:active { transform: scale(0.95); }
+      `}</style>
+
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 sm:h-20">
           
-          {/* Logo */}
-          <Link to="/" className="flex items-center" onClick={closeMenu}>
-            <img
-              src="https://res.cloudinary.com/decqt0izm/image/upload/v1766206433/logo4_tyuruo.png"
-              className="h-12 w-24 sm:h-16 sm:w-32"
-              alt="Logo"
-            />
+          {/* Logo with Glow Effect */}
+          <Link
+            to="/"
+            onClick={closeMenu}
+            className="flex items-center gap-3 group"
+          >
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-500 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-300"></div>
+              <div className="relative bg-slate-900 px-3 py-2 rounded-lg">
+                <span className="text-2xl font-bold">🌾</span>
+              </div>
+            </div>
+            <div className="hidden sm:block">
+              <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                अंजलि बीज भंडार
+              </h1>
+              <p className="text-xs text-gray-400">आपकी कृषि समाधान</p>
+            </div>
           </Link>
 
-          {/* Mobile Toggle */}
-          <button
-            className="lg:hidden p-2 text-gray-700"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={26} /> : <Menu size={26} />}
-          </button>
+          {/* Desktop Navigation */}
+          <ul className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link) => (
+              <li key={link.path}>
+                <NavLink
+                  to={link.path}
+                  className={({ isActive }) =>
+                    `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 nav-item ${
+                      isActive
+                        ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                        : "text-gray-300 hover:text-green-400 hover:bg-green-500/10"
+                    }`
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              </li>
+            ))}
 
-          {/* Menu */}
-          <div
-            className={`${
-              isOpen ? "block" : "hidden"
-            } absolute lg:relative top-full left-0 right-0 lg:top-auto w-full lg:w-auto lg:flex lg:order-1 bg-white lg:bg-transparent border-b lg:border-b-0 border-gray-200`}
-          >
-            <ul className="flex flex-col lg:flex-row lg:space-x-8 font-medium w-full lg:w-auto">
-              {["/", "/about", "/contact"].map((path, i) => (
-                <li key={i} className="w-full lg:w-auto border-b lg:border-b-0 border-gray-100">
-                  <NavLink
-                    to={path}
-                    onClick={closeMenu}
-                    className={({ isActive }) =>
-                      `block py-3 px-4 sm:px-3 ${
-                        isActive ? "text-orange-700 bg-orange-50 lg:bg-transparent" : "text-gray-700"
-                      } hover:text-orange-700 hover:bg-orange-50 lg:hover:bg-transparent transition-colors`
-                    }
-                  >
-                    {path === "/" ? "Home" : path.replace("/", "").charAt(0).toUpperCase() + path.slice(2)}
-                  </NavLink>
-                </li>
-              ))}
-
-              {user?.role === "admin" && (
-                <li className="w-full lg:w-auto border-b lg:border-b-0 border-gray-100">
+            {/* Admin Links */}
+            {user?.role === "admin" && (
+              <>
+                <li className="border-l border-gray-600/30 pl-1">
                   <NavLink
                     to="/admin/posts"
-                    onClick={closeMenu}
                     className={({ isActive }) =>
-                      `block py-3 px-4 sm:px-3 ${
-                        isActive ? "text-orange-700 bg-orange-50 lg:bg-transparent" : "text-gray-700"
-                      } hover:text-orange-700 hover:bg-orange-50 lg:hover:bg-transparent transition-colors`
+                      `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 nav-item ${
+                        isActive
+                          ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                          : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/10"
+                      }`
                     }
                   >
-                    Admin Panel
+                    <BarChart3 size={16} /> पोस्ट
                   </NavLink>
                 </li>
-              )}
-              {user?.role === "admin" && (
-                <li className="w-full lg:w-auto border-b lg:border-b-0 border-gray-100">
+                <li>
                   <NavLink
                     to="/admin/dashboard"
-                    onClick={closeMenu}
                     className={({ isActive }) =>
-                      `block py-3 px-4 sm:px-3 ${
-                        isActive ? "text-orange-700 bg-orange-50 lg:bg-transparent" : "text-gray-700"
-                      } hover:text-orange-700 hover:bg-orange-50 lg:hover:bg-transparent transition-colors`
+                      `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 nav-item ${
+                        isActive
+                          ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                          : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/10"
+                      }`
                     }
                   >
-                    Admin Dashboard
+                    <Settings size={16} /> डैशबोर्ड
                   </NavLink>
                 </li>
-              )}
+              </>
+            )}
+          </ul>
 
-              {/* Mobile Auth Section */}
-              <li className="lg:hidden w-full border-t border-gray-200 mt-2 pt-2">
-                {user ? (
-                  <div className="px-4 py-3">
-                    <p className="text-gray-700 mb-3 font-medium">Hello, {user.fullName || user.name}</p>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm transition-colors"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex flex-col gap-2 px-4 py-3">
-                    <Link
-                      to="/login"
-                      onClick={closeMenu}
-                      className="px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-lg transition-colors text-center"
-                    >
-                      Log in
-                    </Link>
-                    <Link
-                      to="/register"
-                      onClick={closeMenu}
-                      className="px-4 py-2 text-sm text-white bg-orange-700 hover:bg-orange-800 rounded-lg transition-colors text-center"
-                    >
-                      Get started
-                    </Link>
-                  </div>
-                )}
-              </li>
-            </ul>
-          </div>
-
-          {/* Desktop Auth Buttons */}
-          <div className="hidden lg:flex items-center lg:order-2 gap-2">
+          {/* Desktop Auth Section */}
+          <div className="hidden lg:flex items-center gap-3">
             {user ? (
               <>
-                <span className="mr-2 text-sm text-gray-700">Hello, {user.fullName || user.name}</span>
+                <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500/10 border border-green-500/20">
+                  <User size={18} className="text-green-400" />
+                  <div className="text-right">
+                    <p className="text-xs text-gray-400">स्वागत है</p>
+                    <p className="text-sm font-semibold text-green-400">
+                      {user.fullName || user.name}
+                    </p>
+                  </div>
+                </div>
                 <button
                   onClick={handleLogout}
-                  className="text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg text-sm transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold rounded-lg transition-all duration-300 btn-hover shadow-lg hover:shadow-red-500/50"
                 >
-                  Logout
+                  <LogOut size={18} /> लॉगआउट
                 </button>
               </>
             ) : (
               <>
                 <Link
                   to="/login"
-                  className="px-4 py-2 text-sm text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="px-6 py-2 text-gray-300 hover:text-white font-semibold transition-all duration-300 nav-item"
                 >
-                  Log in
+                  लॉगिन करें
                 </Link>
                 <Link
                   to="/register"
-                  className="px-4 py-2 text-sm text-white bg-orange-700 hover:bg-orange-800 rounded-lg transition-colors"
+                  className="px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold rounded-lg transition-all duration-300 btn-hover shadow-lg hover:shadow-green-500/50"
                 >
-                  Get started
+                  शुरुआत करें
                 </Link>
               </>
             )}
           </div>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden p-2 rounded-lg hover:bg-green-500/10 transition-colors text-green-400"
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
+
+        {/* Mobile Navigation */}
+        {isOpen && (
+          <div className="lg:hidden pb-4 menu-slide">
+            <ul className="space-y-1">
+              {navLinks.map((link) => (
+                <li key={link.path}>
+                  <NavLink
+                    to={link.path}
+                    onClick={closeMenu}
+                    className={({ isActive }) =>
+                      `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+                        isActive
+                          ? "bg-green-500/20 text-green-400 border-l-2 border-green-400"
+                          : "text-gray-300 hover:text-green-400 hover:bg-green-500/10"
+                      }`
+                    }
+                  >
+                    {link.label}
+                  </NavLink>
+                </li>
+              ))}
+
+              {/* Mobile Admin Links */}
+              {user?.role === "admin" && (
+                <>
+                  <li className="border-t border-gray-600/30 mt-3 pt-3">
+                    <NavLink
+                      to="/admin/posts"
+                      onClick={closeMenu}
+                      className={({ isActive }) =>
+                        `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+                          isActive
+                            ? "bg-yellow-500/20 text-yellow-400 border-l-2 border-yellow-400"
+                            : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/10"
+                        }`
+                      }
+                    >
+                      <BarChart3 size={18} /> पोस्ट
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/admin/dashboard"
+                      onClick={closeMenu}
+                      className={({ isActive }) =>
+                        `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
+                          isActive
+                            ? "bg-yellow-500/20 text-yellow-400 border-l-2 border-yellow-400"
+                            : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/10"
+                        }`
+                      }
+                    >
+                      <Settings size={18} /> डैशबोर्ड
+                    </NavLink>
+                  </li>
+                </>
+              )}
+
+              {/* Mobile Auth Section */}
+              <li className="border-t border-gray-600/30 mt-3 pt-3">
+                {user ? (
+                  <div className="space-y-2">
+                    <div className="px-4 py-3 rounded-lg bg-green-500/10 border border-green-500/20">
+                      <p className="text-xs text-gray-400 mb-1">स्वागत है</p>
+                      <p className="text-sm font-semibold text-green-400">
+                        {user.fullName || user.name}
+                      </p>
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold rounded-lg transition-all duration-300 btn-hover"
+                    >
+                      <LogOut size={18} /> लॉगआउट
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-2">
+                    <Link
+                      to="/login"
+                      onClick={closeMenu}
+                      className="block px-4 py-3 text-center text-gray-300 hover:text-white hover:bg-gray-600/20 rounded-lg font-medium transition-all duration-300"
+                    >
+                      लॉगिन करें
+                    </Link>
+                    <Link
+                      to="/register"
+                      onClick={closeMenu}
+                      className="block px-4 py-3 text-center bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold rounded-lg transition-all duration-300 btn-hover"
+                    >
+                      शुरुआत करें
+                    </Link>
+                  </div>
+                )}
+              </li>
+            </ul>
+          </div>
+        )}
       </nav>
     </header>
   );

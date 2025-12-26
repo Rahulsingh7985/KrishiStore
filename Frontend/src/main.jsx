@@ -18,7 +18,7 @@ import AdminRoute from './Routes/AdminRoute.jsx';
 import AdminPost from './components/AdminPost/AdminPost.jsx';
 import Contact from './components/Contact/Contact.jsx';
 import ViewProduct from './components/ViewProduct/ViewProduct.jsx';
-import AdminDashboard from './components/AdminDashboard/AdminDashboard.jsx';
+import AdminDashboard from './components/AdminDashboard.jsx';
 
 const router = createBrowserRouter([
   {

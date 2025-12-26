@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Users, Package, UserCheck, AlertCircle } from "lucide-react";
-import UserContext from "../../context/UserContext";
+import UserContext from "../context/UserContext";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
