@@ -96,8 +96,7 @@ export default function ViewProduct() {
         formData.append("image", editData.image);
       }
 
-      const apiUrl = "http://localhost:5000";
-      const response = await fetch(`${apiUrl}/api/v2/posts/update/${id}`, {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v2/posts/update/${id}`, {
         method: "PATCH",
         body: formData,
         credentials: "include",
@@ -119,8 +118,7 @@ export default function ViewProduct() {
     if (!window.confirm("क्या आप इस उत्पाद को हटाना चाहते हैं?")) return;
 
     try {
-      const apiUrl = "http://localhost:5000";
-      await fetch(`${apiUrl}/api/v2/posts/delete/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/api/v2/posts/delete/${id}`, {
         method: "DELETE",
         credentials: "include",
       });

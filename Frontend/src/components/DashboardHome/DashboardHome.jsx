@@ -315,13 +315,21 @@ export default function Dashboard() {
       <nav className="sticky top-0 z-40 backdrop-blur-xl bg-slate-900/80 border-b border-green-500/20">
         <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 flex items-center justify-between">
           <h1 className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-           अंजलि बीज भंडार
+            अंजलि बीज भंडार
           </h1>
           <button
             onClick={() => setShowCart(!showCart)}
             className="relative px-3 sm:px-4 py-2 bg-green-600 hover:active:bg-green-700 text-white rounded-lg font-semibold transition btn-scale flex items-center gap-1 sm:gap-2 text-sm sm:text-base"
           >
-            🛒 <span className="hidden sm:inline">कार्ट</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 128 128"
+              className="h-5 w-5 sm:h-6 sm:w-6 fill-current"
+            >
+              <path
+                d="M27.4 13.7V7.6H0v6.1h21.3V99H97.5v-6H27.4V13.7zm6.1 54.9h82.3v-6.1H33.5v6.1zm0 15.2h73.1v-6.1H33.5v6.1zm3.1 18.3c-5 0-9.1 4.1-9.1 9.1 0 5.1 4.1 9.1 9.1 9.1s9.1-4.1 9.1-9.1-4.1-9.1-9.1-9.1zm45.7 0c-5 0-9.1 4.1-9.1 9.1 0 5.1 4.1 9.1 9.1 9.1s9.1-4.1 9.1-9.1-4.1-9.1-9.1-9.1zM33.5 53.3h88.4v-6.1H33.5v6.1zm0-21.3v6.1H128V32H33.5z"
+              />
+            </svg> <span className="hidden sm:inline">कार्ट</span>
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                 {cartCount}
@@ -352,11 +360,10 @@ export default function Dashboard() {
               <button
                 key={cat.key}
                 onClick={() => setActiveCategory(cat.key)}
-                className={`flex-shrink-0 p-2 sm:p-4 rounded-lg sm:rounded-xl font-semibold transition-all btn-scale whitespace-nowrap text-xs sm:text-sm ${
-                  activeCategory === cat.key
-                    ? "bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg scale-100 sm:scale-105"
-                    : "bg-slate-800/50 border border-green-500/20 text-gray-200 hover:border-green-500/50"
-                }`}
+                className={`flex-shrink-0 p-2 sm:p-4 rounded-lg sm:rounded-xl font-semibold transition-all btn-scale whitespace-nowrap text-xs sm:text-sm ${activeCategory === cat.key
+                  ? "bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg scale-100 sm:scale-105"
+                  : "bg-slate-800/50 border border-green-500/20 text-gray-200 hover:border-green-500/50"
+                  }`}
               >
                 <div className="text-xl sm:text-3xl mb-0.5 sm:mb-1">{cat.emoji}</div>
                 <div className="text-xs sm:text-sm leading-tight">{cat.label}</div>
@@ -454,7 +461,15 @@ export default function Dashboard() {
                           onClick={() => handleAddToCart(product)}
                           className="p-1.5 sm:p-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg hover:shadow-lg hover:shadow-green-500/50 transition text-base sm:text-lg btn-scale"
                         >
-                          🛒
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 128 128"
+                            className="h-5 w-5 sm:h-6 sm:w-6 fill-current"
+                          >
+                            <path
+                              d="M27.4 13.7V7.6H0v6.1h21.3V99H97.5v-6H27.4V13.7zm6.1 54.9h82.3v-6.1H33.5v6.1zm0 15.2h73.1v-6.1H33.5v6.1zm3.1 18.3c-5 0-9.1 4.1-9.1 9.1 0 5.1 4.1 9.1 9.1 9.1s9.1-4.1 9.1-9.1-4.1-9.1-9.1-9.1zm45.7 0c-5 0-9.1 4.1-9.1 9.1 0 5.1 4.1 9.1 9.1 9.1s9.1-4.1 9.1-9.1-4.1-9.1-9.1-9.1zM33.5 53.3h88.4v-6.1H33.5v6.1zm0-21.3v6.1H128V32H33.5z"
+                            />
+                          </svg>
                         </button>
                       </div>
                     </div>
