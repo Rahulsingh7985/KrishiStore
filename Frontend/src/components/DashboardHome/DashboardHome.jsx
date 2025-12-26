@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useCart from "../../hooks/UseCart.jsx";  ; 
+import useCart from "../../hooks/useCart.jsx";  ; 
 
 const CATEGORIES = [
   { key: "seed", label: "बीज", emoji: "🌱" },
