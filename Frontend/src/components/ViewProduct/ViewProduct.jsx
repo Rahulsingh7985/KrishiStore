@@ -27,8 +27,7 @@ export default function ViewProduct() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const apiUrl = "http://localhost:5000"; // Update with your backend URL
-        const response = await fetch(`${apiUrl}/api/v2/posts/${id}`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v2/posts/${id}`);
         const data = await response.json();
         setProduct(data?.data);
       } catch (err) {
