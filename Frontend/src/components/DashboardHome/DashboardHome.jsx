@@ -1,148 +1,6 @@
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import { motion } from "framer-motion";
-// import { Phone, Eye, MessageCircle } from "lucide-react";
-// import { Link } from "react-router-dom";
-
-// const CATEGORIES = [
-//   { key: "seed", label: "बीज" },
-//   { key: "pesticide", label: "कीटनाशक" },
-//   { key: "herbicide", label: "खरपतवार" },
-//   { key: "fertilizer", label: "खाद" },
-//   { key: "equipment", label: "उपकरण" },
-// ];
-
-// export default function CategoryPosts() {
-//   const [posts, setPosts] = useState([]);
-//   const [activeCategory, setActiveCategory] = useState("seed");
-//   const [loading, setLoading] = useState(false);
-
-//   const fetchPosts = async () => {
-//     try {
-//       setLoading(true);
-//       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v2/posts`);
-//       setPosts(res.data?.data || []);
-//     } catch (error) {
-//       console.error("Failed to fetch posts", error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchPosts();
-//   }, []);
-
-//   const filteredPosts = posts.filter((post) => post.category === activeCategory);
-
-//   return (
-//     <div className="bg-gradient-to-b from-green-50 to-green-100 py-6 sm:py-10 min-h-screen">
-//       <div className="max-w-7xl mx-auto px-3 sm:px-4">
-//         {/* Heading */}
-//         <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8 text-green-900">
-//           हमारे उत्पाद
-//         </h1>
-
-//         {/* Category Tabs - Horizontal Scroll on Mobile */}
-//         <div className="mb-8 sm:mb-10">
-//           <div className="flex gap-2 overflow-x-auto pb-3 scrollbar-hide sm:justify-center sm:flex-wrap">
-//             {CATEGORIES.map((cat) => (
-//               <button
-//                 key={cat.key}
-//                 onClick={() => setActiveCategory(cat.key)}
-//                 className={`px-4 sm:px-6 py-2 rounded-full border-2 text-xs sm:text-sm font-semibold transition whitespace-nowrap flex-shrink-0 ${
-//                   activeCategory === cat.key
-//                     ? "bg-green-600 text-white border-green-600 shadow-lg scale-105"
-//                     : "bg-white text-gray-700 border-green-300 hover:border-green-500"
-//                 }`}
-//               >
-//                 {cat.label}
-//               </button>
-//             ))}
-//           </div>
-//         </div>
-
-//         {/* Loading State */}
-//         {loading && (
-//           <div className="flex justify-center items-center py-12">
-//             <div className="animate-spin rounded-full h-12 w-12 border-4 border-green-600 border-t-transparent"></div>
-//           </div>
-//         )}
-
-//         {/* Empty State */}
-//         {!loading && filteredPosts.length === 0 && (
-//           <div className="text-center py-12">
-//             <p className="text-gray-600 text-lg">कोई उत्पाद उपलब्ध नहीं</p>
-//           </div>
-//         )}
-
-//         {/* Products Grid */}
-//         {!loading && filteredPosts.length > 0 && (
-//           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-//             {filteredPosts.map((post) => (
-//               <motion.div
-//                 key={post._id}
-//                 whileHover={{ y: -5 }}
-//                 className="bg-white rounded-xl sm:rounded-2xl shadow-md hover:shadow-2xl transition-all p-3 sm:p-5 flex flex-col"
-//               >
-//                 {/* Product Image */}
-//                 <div className="bg-gray-100 rounded-lg p-2 sm:p-3 mb-3 sm:mb-4 h-28 sm:h-40 flex items-center justify-center overflow-hidden">
-//                   <img
-//                     src={post.image}
-//                     alt={post.title}
-//                     className="h-full w-full object-contain"
-//                   />
-//                 </div>
-
-//                 {/* Title */}
-//                 <h3 className="font-semibold text-gray-900 text-xs sm:text-sm line-clamp-2 mb-2">
-//                   {post.title}
-//                 </h3>
-
-//                 {/* Quantity */}
-//                 {post.quantity && (
-//                   <p className="text-xs text-gray-500 mb-1">
-//                     {post.quantity}
-//                   </p>
-//                 )}
-
-//                 {/* Price */}
-//                 {post.price > 0 && (
-//                   <p className="text-sm sm:text-lg font-bold text-green-700 mb-3 sm:mb-4">
-//                     ₹{post.price}
-//                   </p>
-//                 )}
-
-//                 {/* View Product Button */}
-//                 <Link
-//                   to={`/viewproduct/${post._id}`}
-//                   className="mt-auto px-4 py-2 bg-[#8B3E1F] text-white rounded-lg text-xs sm:text-sm font-semibold hover:bg-[#733218] flex items-center justify-center gap-2 transition active:scale-95 w-full"
-//                 >
-//                   <Eye size={16} />
-//                   <span>देखें</span>
-//                 </Link>
-//               </motion.div>
-//             ))}
-//           </div>
-//         )}
-//       </div>
-
-//       <style jsx>{`
-//         .scrollbar-hide::-webkit-scrollbar {
-//           display: none;
-//         }
-//         .scrollbar-hide {
-//           -ms-overflow-style: none;
-//           scrollbar-width: none;
-//         }
-//       `}</style>
-//     </div>
-//   );
-// }
-
-
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useCart from "../../hooks/UseCart.jsx";  ; 
 
 const CATEGORIES = [
   { key: "seed", label: "बीज", emoji: "🌱" },
@@ -154,11 +12,24 @@ const CATEGORIES = [
 
 export default function Dashboard() {
   const navigate = useNavigate();
+  
+  // Use the custom cart hook
+  const {
+    cartItems,
+    wishlist,
+    isLoaded,
+    addToCart,
+    removeFromCart,
+    updateQuantity,
+    toggleWishlist,
+    getCartTotal,
+    getCartCount,
+    isInWishlist,
+  } = useCart();
+
   const [posts, setPosts] = useState([]);
   const [activeCategory, setActiveCategory] = useState("seed");
   const [searchTerm, setSearchTerm] = useState("");
-  const [cartItems, setCartItems] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
   const [showCart, setShowCart] = useState(false);
   const [notification, setNotification] = useState("");
   const [sortBy, setSortBy] = useState("featured");
@@ -169,7 +40,8 @@ export default function Dashboard() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v2/posts`);
+        const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+        const response = await fetch(`${apiUrl}/api/v2/posts`);
         const data = await response.json();
         setPosts(data?.data || []);
       } catch (error) {
@@ -199,46 +71,25 @@ export default function Dashboard() {
     return filtered;
   }, [posts, activeCategory, searchTerm, sortBy]);
 
-  const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
-  const cartCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
+  const cartTotal = getCartTotal();
+  const cartCount = getCartCount();
 
   const handleAddToCart = (product) => {
-    const existing = cartItems.find((item) => item._id === product._id);
-    if (existing) {
-      setCartItems(
-        cartItems.map((item) =>
-          item._id === product._id ? { ...item, qty: item.qty + 1 } : item
-        )
-      );
-    } else {
-      setCartItems([...cartItems, { ...product, qty: 1 }]);
-    }
+    addToCart(product);
     showNotification(`${product.title} कार्ट में जोड़ा गया!`);
   };
 
   const handleRemoveFromCart = (productId) => {
-    setCartItems(cartItems.filter((item) => item._id !== productId));
+    removeFromCart(productId);
     showNotification("कार्ट से हटाया गया");
   };
 
-  const handleUpdateQuantity = (productId, newQty) => {
-    if (newQty <= 0) {
-      handleRemoveFromCart(productId);
-    } else {
-      setCartItems(
-        cartItems.map((item) =>
-          item._id === productId ? { ...item, qty: newQty } : item
-        )
-      );
-    }
-  };
-
   const handleToggleWishlist = (product) => {
-    if (wishlist.find((item) => item._id === product._id)) {
-      setWishlist(wishlist.filter((item) => item._id !== product._id));
+    toggleWishlist(product);
+    const inWishlist = isInWishlist(product._id);
+    if (inWishlist) {
       showNotification("विशलिस्ट से हटाया गया");
     } else {
-      setWishlist([...wishlist, product]);
       showNotification("विशलिस्ट में जोड़ा गया! ❤️");
     }
   };
@@ -282,6 +133,18 @@ export default function Dashboard() {
     return encodeURIComponent(message);
   };
 
+  // Show loading while cart data is being loaded from localStorage
+  if (!isLoaded) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-green-900 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-4 border-green-600 border-t-transparent mb-4"></div>
+          <p className="text-gray-300 font-medium">कार्ट लोड हो रहा है...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-green-900 to-slate-900">
       <style>{`
@@ -321,15 +184,7 @@ export default function Dashboard() {
             onClick={() => setShowCart(!showCart)}
             className="relative px-3 sm:px-4 py-2 bg-green-600 hover:active:bg-green-700 text-white rounded-lg font-semibold transition btn-scale flex items-center gap-1 sm:gap-2 text-sm sm:text-base"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 128 128"
-              className="h-5 w-5 sm:h-6 sm:w-6 fill-current"
-            >
-              <path
-                d="M27.4 13.7V7.6H0v6.1h21.3V99H97.5v-6H27.4V13.7zm6.1 54.9h82.3v-6.1H33.5v6.1zm0 15.2h73.1v-6.1H33.5v6.1zm3.1 18.3c-5 0-9.1 4.1-9.1 9.1 0 5.1 4.1 9.1 9.1 9.1s9.1-4.1 9.1-9.1-4.1-9.1-9.1-9.1zm45.7 0c-5 0-9.1 4.1-9.1 9.1 0 5.1 4.1 9.1 9.1 9.1s9.1-4.1 9.1-9.1-4.1-9.1-9.1-9.1zM33.5 53.3h88.4v-6.1H33.5v6.1zm0-21.3v6.1H128V32H33.5z"
-              />
-            </svg> <span className="hidden sm:inline">कार्ट</span>
+            🛒 <span className="hidden sm:inline">कार्ट</span>
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                 {cartCount}
@@ -355,34 +210,38 @@ export default function Dashboard() {
         {/* Categories */}
         <div className="mb-8 sm:mb-10">
           <h3 className="text-lg sm:text-2xl font-bold text-white mb-3 sm:mb-4">📂 श्रेणियाँ</h3>
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          <div className="flex gap-1.5 sm:gap-2 overflow-x-auto pb-3 scrollbar-hide">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.key}
                 onClick={() => setActiveCategory(cat.key)}
-                className={`flex-shrink-0 p-2 sm:p-4 rounded-lg sm:rounded-xl font-semibold transition-all btn-scale whitespace-nowrap text-xs sm:text-sm ${activeCategory === cat.key
-                  ? "bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg scale-100 sm:scale-105"
-                  : "bg-slate-800/50 border border-green-500/20 text-gray-200 hover:border-green-500/50"
-                  }`}
+                className={`flex-shrink-0 p-2.5 sm:p-3 md:p-4 rounded-lg sm:rounded-xl font-semibold transition-all btn-scale whitespace-nowrap text-xs sm:text-xs md:text-sm ${
+                  activeCategory === cat.key
+                    ? "bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg"
+                    : "bg-slate-800/50 border border-green-500/20 text-gray-200 hover:border-green-500/50"
+                }`}
               >
-                <div className="text-xl sm:text-3xl mb-0.5 sm:mb-1">{cat.emoji}</div>
-                <div className="text-xs sm:text-sm leading-tight">{cat.label}</div>
+                <div className="text-lg sm:text-2xl md:text-3xl mb-0.5 sm:mb-1">{cat.emoji}</div>
+                <div className="text-xs leading-tight max-w-12 sm:max-w-none">{cat.label}</div>
               </button>
             ))}
           </div>
         </div>
 
         {/* Sort */}
-        <div className="mb-6 sm:mb-8">
+        <div className="mb-6 sm:mb-8 flex justify-between items-center gap-4">
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-3 sm:px-4 py-2 bg-slate-800/50 border border-green-500/30 rounded-lg text-white cursor-pointer focus:outline-none focus:border-green-500 text-sm sm:text-base"
+            className="px-3 sm:px-4 py-2 bg-slate-800/50 border border-green-500/30 rounded-lg text-white cursor-pointer focus:outline-none focus:border-green-500 text-xs sm:text-sm flex-1 sm:flex-none"
           >
             <option value="featured">📌 विशेष</option>
             <option value="price-low">💰 कम कीमत</option>
             <option value="price-high">💎 अधिक कीमत</option>
           </select>
+          <div className="text-xs sm:text-sm text-gray-400">
+            {filteredProducts.length} उत्पाद
+          </div>
         </div>
 
         {/* Loading State */}
@@ -392,33 +251,33 @@ export default function Dashboard() {
           </div>
         )}
 
-        {/* Products Grid - More Mobile Responsive */}
+        {/* Products Grid */}
         {!loading && filteredProducts.length > 0 ? (
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4 lg:gap-6">
             {filteredProducts.map((product) => {
-              const isInWishlist = wishlist.find((item) => item._id === product._id);
+              const inWishlist = isInWishlist(product._id);
               return (
                 <div
                   key={product._id}
-                  className="group relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl sm:rounded-2xl border border-green-500/20 overflow-hidden hover:border-green-500/50 transition-all hover-lift flex flex-col"
+                  className="group relative bg-gradient-to-br from-slate-800 to-slate-900 rounded-lg sm:rounded-xl md:rounded-2xl border border-green-500/20 overflow-hidden hover:border-green-500/50 transition-all hover-lift flex flex-col"
                 >
                   {/* Wishlist Button */}
                   <button
                     onClick={() => handleToggleWishlist(product)}
-                    className="absolute top-2 sm:top-4 right-2 sm:right-4 z-10 p-1.5 sm:p-2 bg-slate-900/80 rounded-full hover:bg-red-500 transition text-base sm:text-xl btn-scale"
+                    className="absolute top-1.5 sm:top-2 md:top-4 right-1.5 sm:right-2 md:right-4 z-10 p-1 sm:p-1.5 md:p-2 bg-slate-900/80 rounded-full hover:bg-red-500 transition text-sm sm:text-base md:text-xl btn-scale"
                   >
-                    {isInWishlist ? "❤️" : "🤍"}
+                    {inWishlist ? "❤️" : "🤍"}
                   </button>
 
                   {/* Stock Badge */}
                   {product.quantity && parseInt(product.quantity) <= 20 && (
-                    <div className="absolute top-2 sm:top-4 left-2 sm:left-4 z-10 bg-orange-500/80 text-white px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-semibold">
+                    <div className="absolute top-1.5 sm:top-2 md:top-4 left-1.5 sm:left-2 md:left-4 z-10 bg-orange-500/80 text-white px-1.5 sm:px-2 md:px-3 py-0.5 rounded-full text-xs font-semibold">
                       ⚠️ सीमित
                     </div>
                   )}
 
                   {/* Image */}
-                  <div className="relative h-32 sm:h-40 lg:h-48 bg-slate-700/50 overflow-hidden">
+                  <div className="relative h-24 sm:h-32 md:h-40 lg:h-48 bg-slate-700/50 overflow-hidden">
                     <img
                       src={product.image}
                       alt={product.title}
@@ -427,13 +286,13 @@ export default function Dashboard() {
                   </div>
 
                   {/* Content */}
-                  <div className="p-2 sm:p-3 lg:p-4 space-y-2 sm:space-y-3 flex-1 flex flex-col">
-                    <h4 className="font-bold text-white text-xs sm:text-sm line-clamp-2">
+                  <div className="p-2 sm:p-2.5 md:p-3 lg:p-4 space-y-1 sm:space-y-1.5 md:space-y-2 flex-1 flex flex-col">
+                    <h4 className="font-bold text-white text-xs sm:text-xs md:text-sm line-clamp-2">
                       {product.title}
                     </h4>
 
                     {/* Category */}
-                    <div className="text-xs text-gray-400 capitalize bg-slate-700/50 px-2 py-0.5 rounded w-fit">
+                    <div className="text-xs text-gray-400 capitalize bg-slate-700/50 px-1.5 py-0.5 rounded w-fit">
                       📦 {product.category}
                     </div>
 
@@ -445,31 +304,23 @@ export default function Dashboard() {
                     )}
 
                     {/* Price & Buttons */}
-                    <div className="flex items-center justify-between pt-1 sm:pt-2 border-t border-green-500/20 mt-auto">
-                      <span className="text-lg sm:text-xl lg:text-2xl font-bold text-green-400 truncate">
+                    <div className="flex items-center justify-between pt-1 sm:pt-1.5 border-t border-green-500/20 mt-auto gap-1">
+                      <span className="text-base sm:text-base md:text-lg lg:text-2xl font-bold text-green-400 truncate">
                         ₹{product.price?.toLocaleString("en-IN") || "N/A"}
                       </span>
-                      <div className="flex gap-1 sm:gap-2">
+                      <div className="flex gap-0.5 sm:gap-1">
                         <button
                           onClick={() => navigate(`/viewproduct/${product._id}`)}
-                          className="p-1.5 sm:p-2 bg-blue-500 hover:active:bg-blue-600 text-white rounded-lg transition text-base sm:text-lg btn-scale"
+                          className="p-1 sm:p-1.5 bg-blue-500 hover:active:bg-blue-600 text-white rounded transition text-sm sm:text-base btn-scale"
                           title="View Details"
                         >
                           👁️
                         </button>
                         <button
                           onClick={() => handleAddToCart(product)}
-                          className="p-1.5 sm:p-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg hover:shadow-lg hover:shadow-green-500/50 transition text-base sm:text-lg btn-scale"
+                          className="p-1 sm:p-1.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded hover:shadow-lg hover:shadow-green-500/50 transition text-sm sm:text-base btn-scale"
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 128 128"
-                            className="h-5 w-5 sm:h-6 sm:w-6 fill-current"
-                          >
-                            <path
-                              d="M27.4 13.7V7.6H0v6.1h21.3V99H97.5v-6H27.4V13.7zm6.1 54.9h82.3v-6.1H33.5v6.1zm0 15.2h73.1v-6.1H33.5v6.1zm3.1 18.3c-5 0-9.1 4.1-9.1 9.1 0 5.1 4.1 9.1 9.1 9.1s9.1-4.1 9.1-9.1-4.1-9.1-9.1-9.1zm45.7 0c-5 0-9.1 4.1-9.1 9.1 0 5.1 4.1 9.1 9.1 9.1s9.1-4.1 9.1-9.1-4.1-9.1-9.1-9.1zM33.5 53.3h88.4v-6.1H33.5v6.1zm0-21.3v6.1H128V32H33.5z"
-                            />
-                          </svg>
+                          🛒
                         </button>
                       </div>
                     </div>
@@ -485,7 +336,7 @@ export default function Dashboard() {
         )}
       </div>
 
-      {/* Shopping Cart Sidebar - Mobile Optimized */}
+      {/* Shopping Cart Sidebar */}
       {showCart && (
         <>
           <div
@@ -540,7 +391,7 @@ export default function Dashboard() {
                     <div className="flex items-center gap-2 mt-3 justify-between">
                       <div className="flex items-center gap-1.5 sm:gap-2">
                         <button
-                          onClick={() => handleUpdateQuantity(item._id, item.qty - 1)}
+                          onClick={() => updateQuantity(item._id, item.qty - 1)}
                           className="px-2 sm:px-3 py-1 bg-slate-700 hover:active:bg-slate-600 text-white rounded transition btn-scale text-sm"
                         >
                           −
@@ -549,7 +400,7 @@ export default function Dashboard() {
                           {item.qty}
                         </span>
                         <button
-                          onClick={() => handleUpdateQuantity(item._id, item.qty + 1)}
+                          onClick={() => updateQuantity(item._id, item.qty + 1)}
                           className="px-2 sm:px-3 py-1 bg-slate-700 hover:active:bg-slate-600 text-white rounded transition btn-scale text-sm"
                         >
                           +

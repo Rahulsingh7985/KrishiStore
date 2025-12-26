@@ -20,6 +20,7 @@ import Contact from './components/Contact/Contact.jsx';
 import ViewProduct from './components/ViewProduct/ViewProduct.jsx';
 import AdminDashboard from './components/AdminDashboard.jsx';
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -80,7 +81,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <UserContextProvider>   {/* 👈 WRAP HERE */}
+    <UserContextProvider>    {/* 👈 WRAP HERE */}
       <RouterProvider router={router} />
     </UserContextProvider>
   </StrictMode>
