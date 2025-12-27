@@ -379,7 +379,7 @@ export default function Dashboard() {
               </div>
               <button
                 onClick={() => setShowCart(false)}
-                className="p-2 hover:bg-slate-800 rounded-lg transition text-xl btn-scale"
+                className="p-2 bg-white rounded-lg font-semibold text-green-600 transition text-xl btn-scale"
               >
                 ✕
               </button>
