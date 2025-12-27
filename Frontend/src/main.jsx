@@ -19,7 +19,7 @@ import AdminPost from './components/AdminPost/AdminPost.jsx';
 import Contact from './components/Contact/Contact.jsx';
 import ViewProduct from './components/ViewProduct/ViewProduct.jsx';
 import AdminDashboard from './components/AdminDashboard.jsx';
-
+import AIAgent from "./components/AIAgent/AIAgent";
 
 const router = createBrowserRouter([
   {
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         )
       },
-        {
+      {
         path: "admin/dashboard",
         element: (
           <AdminRoute>
@@ -55,9 +55,9 @@ const router = createBrowserRouter([
         path: "contact",
         element: <Contact />
       },
-       {
+      {
         path: "viewproduct/:id",
-        element: <ViewProduct/>
+        element: <ViewProduct />
       },
       {
         path: "login",
@@ -66,6 +66,10 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />
+      },
+      {
+        path: "/ai-agent",
+        element: <AIAgent />
       },
       {
         path: "admin/posts",

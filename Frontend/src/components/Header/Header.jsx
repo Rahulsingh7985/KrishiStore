@@ -39,7 +39,7 @@ export default function ModernHeader() {
 
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 sm:h-20">
-          
+
           {/* Logo with Glow Effect */}
           <Link
             to="/"
@@ -67,10 +67,9 @@ export default function ModernHeader() {
                 <NavLink
                   to={link.path}
                   className={({ isActive }) =>
-                    `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 nav-item ${
-                      isActive
-                        ? "bg-green-500/20 text-green-400 border border-green-500/30"
-                        : "text-gray-300 hover:text-green-400 hover:bg-green-500/10"
+                    `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 nav-item ${isActive
+                      ? "bg-green-500/20 text-green-400 border border-green-500/30"
+                      : "text-gray-300 hover:text-green-400 hover:bg-green-500/10"
                     }`
                   }
                 >
@@ -86,10 +85,9 @@ export default function ModernHeader() {
                   <NavLink
                     to="/admin/posts"
                     className={({ isActive }) =>
-                      `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 nav-item ${
-                        isActive
-                          ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                          : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/10"
+                      `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 nav-item ${isActive
+                        ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                        : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/10"
                       }`
                     }
                   >
@@ -100,10 +98,9 @@ export default function ModernHeader() {
                   <NavLink
                     to="/admin/dashboard"
                     className={({ isActive }) =>
-                      `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 nav-item ${
-                        isActive
-                          ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                          : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/10"
+                      `flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-300 nav-item ${isActive
+                        ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                        : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/10"
                       }`
                     }
                   >
@@ -133,6 +130,9 @@ export default function ModernHeader() {
                 >
                   <LogOut size={18} /> लॉगआउट
                 </button>
+                {/* <Link to="/ai-agent" className="nav-link">
+                  🤖 AI Assistant
+                </Link> */}
               </>
             ) : (
               <>
@@ -172,10 +172,9 @@ export default function ModernHeader() {
                     to={link.path}
                     onClick={closeMenu}
                     className={({ isActive }) =>
-                      `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
-                        isActive
-                          ? "bg-green-500/20 text-green-400 border-l-2 border-green-400"
-                          : "text-gray-300 hover:text-green-400 hover:bg-green-500/10"
+                      `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${isActive
+                        ? "bg-green-500/20 text-green-400 border-l-2 border-green-400"
+                        : "text-gray-300 hover:text-green-400 hover:bg-green-500/10"
                       }`
                     }
                   >
@@ -192,10 +191,9 @@ export default function ModernHeader() {
                       to="/admin/posts"
                       onClick={closeMenu}
                       className={({ isActive }) =>
-                        `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
-                          isActive
-                            ? "bg-yellow-500/20 text-yellow-400 border-l-2 border-yellow-400"
-                            : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/10"
+                        `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${isActive
+                          ? "bg-yellow-500/20 text-yellow-400 border-l-2 border-yellow-400"
+                          : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/10"
                         }`
                       }
                     >
@@ -207,10 +205,9 @@ export default function ModernHeader() {
                       to="/admin/dashboard"
                       onClick={closeMenu}
                       className={({ isActive }) =>
-                        `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
-                          isActive
-                            ? "bg-yellow-500/20 text-yellow-400 border-l-2 border-yellow-400"
-                            : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/10"
+                        `flex items-center gap-3 px-4 py-3 rounded-lg font-medium transition-all duration-300 ${isActive
+                          ? "bg-yellow-500/20 text-yellow-400 border-l-2 border-yellow-400"
+                          : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/10"
                         }`
                       }
                     >
