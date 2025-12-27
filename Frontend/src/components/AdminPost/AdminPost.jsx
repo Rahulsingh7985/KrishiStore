@@ -43,7 +43,6 @@ export default function AdminPost() {
     try {
       setLoading(true);
 
-      // 🔐 Get JWT token
       const token = localStorage.getItem("accessToken");
 
       const res = await axios.post(
@@ -60,7 +59,6 @@ export default function AdminPost() {
 
       alert(res.data.message || "Post created successfully");
 
-      // Reset form
       setTitle("");
       setDescription("");
       setCategory("");
@@ -76,109 +74,115 @@ export default function AdminPost() {
   };
 
   return (
-    <div className="min-h-screen p-10 bg-gradient-to-br from-green-50 via-green-100 to-green-200 flex items-center justify-center px-4">
-      <div className="w-full max-w-xl bg-white rounded-3xl shadow-2xl p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-green-900 to-slate-900 py-6 sm:py-8 lg:py-10 px-3 sm:px-4 lg:px-6 flex items-center justify-center">
+      <style>{`
+        @keyframes slideInUp {
+          from { opacity: 0; transform: translateY(30px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .form-container { animation: slideInUp 0.6s ease-out; }
+      `}</style>
+
+      <div className="form-container w-full max-w-2xl bg-gradient-to-br from-slate-800 to-slate-900 border border-green-500/20 rounded-2xl lg:rounded-3xl shadow-2xl p-6 sm:p-8 lg:p-10">
+        
         {/* Header */}
-        <div className="text-center mb-6">
-          <h2 className="text-3xl font-extrabold text-green-700">
-            🌱 Add New Product
+        <div className="text-center mb-8 lg:mb-10">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-2">
+            🌱 नया उत्पाद जोड़ें
           </h2>
-          <p className="text-sm text-gray-500">
-            Admin panel – BeejBhandar
+          <p className="text-gray-400 text-sm sm:text-base">
+            अपने कृषि उत्पाद को बाज़ार में जोड़ें
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-6 lg:space-y-7">
+          
           {/* Title */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">
-              Product Title
+            <label className="block text-sm font-bold text-gray-300 mb-2 sm:mb-3">
+              उत्पाद का शीर्षक
             </label>
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Eg. Hybrid Tomato Seeds"
-              className="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+              placeholder="जैसे: संकर टमाटर के बीज"
+              className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-slate-700/50 border border-green-500/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/50 transition text-sm sm:text-base"
               required
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">
-              Description
+            <label className="block text-sm font-bold text-gray-300 mb-2 sm:mb-3">
+              विवरण
             </label>
             <textarea
               rows={4}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Product details, usage, benefits..."
-              className="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+              placeholder="उत्पाद के विवरण, उपयोग, लाभ..."
+              className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-slate-700/50 border border-green-500/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/50 transition resize-none text-sm sm:text-base"
               required
             />
           </div>
 
           {/* Category */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">
-              Category
+            <label className="block text-sm font-bold text-gray-300 mb-2 sm:mb-3">
+              श्रेणी
             </label>
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className={`w-full border rounded-xl px-4 py-2 focus:ring-2 focus:outline-none ${
-                category
-                  ? "focus:ring-green-500"
-                  : "border-red-300 focus:ring-red-400"
-              }`}
+              className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-slate-700/50 border border-green-500/20 rounded-xl text-white focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/50 transition text-sm sm:text-base cursor-pointer"
               required
             >
-              <option value="" disabled>
-                -- Choose Category --
+              <option value="" disabled className="bg-slate-900 text-gray-300">
+                -- श्रेणी चुनें --
               </option>
-              <option value="seed">🌾 बीज (Seed)</option>
-              <option value="pesticide">🧪 कीटनाशक (Pesticide)</option>
-              <option value="herbicide">🧪 खरपतवार  (herbicide)</option>
-              <option value="fertilizer">🌱 उर्वरक (Fertilizer)</option>
-              <option value="equipment">🔧 उपकरण (Equipment)</option>
+              <option value="seed" className="bg-slate-900 text-white">🌾 बीज (Seed)</option>
+              <option value="pesticide" className="bg-slate-900 text-white">⚡ कीटनाशक (Pesticide)</option>
+              <option value="herbicide" className="bg-slate-900 text-white">🍃 खरपतवार (Herbicide)</option>
+              <option value="fertilizer" className="bg-slate-900 text-white">🌱 खाद (Fertilizer)</option>
+              <option value="equipment" className="bg-slate-900 text-white">🔧 उपकरण (Equipment)</option>
             </select>
           </div>
 
           {/* Price */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">
-              Price (₹)
+            <label className="block text-sm font-bold text-gray-300 mb-2 sm:mb-3">
+              कीमत (₹)
             </label>
             <input
               type="number"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
-              placeholder="Optional"
-              className="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
+              placeholder="वैकल्पिक"
+              className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-slate-700/50 border border-green-500/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/50 transition text-sm sm:text-base"
             />
           </div>
 
           {/* Image */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">
-              Product Image
+            <label className="block text-sm font-bold text-gray-300 mb-2 sm:mb-3">
+              उत्पाद की छवि
             </label>
 
             <input
               type="file"
               accept="image/*"
               onChange={handleImageChange}
-              className="w-full"
+              className="w-full text-gray-400 file:bg-gradient-to-r file:from-green-500 file:to-emerald-500 file:text-white file:font-bold file:px-4 file:py-2 file:rounded-lg file:border-0 file:cursor-pointer hover:file:from-green-600 hover:file:to-emerald-600 transition"
               required
             />
 
             {preview && (
-              <div className="mt-4 rounded-xl overflow-hidden border shadow-sm">
+              <div className="mt-4 sm:mt-6 rounded-xl overflow-hidden border border-green-500/30 shadow-lg">
                 <img
                   src={preview}
                   alt="Preview"
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 sm:h-64 object-cover"
                 />
               </div>
             )}
@@ -188,13 +192,13 @@ export default function AdminPost() {
           <button
             type="submit"
             disabled={loading || !category}
-            className={`w-full py-3 rounded-xl text-white font-bold tracking-wide transition-all ${
+            className={`w-full py-3 sm:py-4 rounded-xl font-bold tracking-wide transition-all text-base sm:text-lg flex items-center justify-center gap-2 ${
               loading || !category
-                ? "bg-gray-400 cursor-not-allowed"
-                : "bg-green-600 hover:bg-green-700 hover:shadow-lg"
+                ? "bg-gray-600/50 text-gray-300 cursor-not-allowed"
+                : "bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white hover:shadow-lg hover:shadow-green-500/50"
             }`}
           >
-            {loading ? "⏳ Creating Product..." : "✅ Create Product"}
+            {loading ? "⏳ उत्पाद बनाया जा रहा है..." : "✅ उत्पाद बनाएँ"}
           </button>
         </form>
       </div>

@@ -281,15 +281,15 @@ export default function ViewProduct() {
               <div className="space-y-3 pt-4">
                 
                 {/* Add to Cart Button */}
-                <button className="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold rounded-lg text-center transition duration-200 btn-hover shadow-lg hover:shadow-green-500/50 text-sm sm:text-base flex items-center justify-center gap-2">
+                {/* <button className="w-full px-6 py-3 sm:py-4 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-bold rounded-lg text-center transition duration-200 btn-hover shadow-lg hover:shadow-green-500/50 text-sm sm:text-base flex items-center justify-center gap-2">
                   <ShoppingCart size={20} />
                   कार्ट में जोड़ें
-                </button>
+                </button> */}
 
                 {/* Contact Buttons */}
                 <div className="grid grid-cols-2 gap-3">
                   <a
-                    href="tel:9936927006"
+                    href="tel:9589259036"
                     className="px-4 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg text-center transition duration-200 btn-hover shadow-md text-xs sm:text-sm flex items-center justify-center gap-2"
                   >
                     <Phone size={16} />
@@ -297,7 +297,7 @@ export default function ViewProduct() {
                   </a>
 
                   <a
-                    href={`https://wa.me/9936927006?text=${generateWhatsAppMessage()}`}
+                    href={`https://wa.me/9589259036?text=${generateWhatsAppMessage()}`}
                     target="_blank"
                     rel="noreferrer"
                     className="px-4 py-3 sm:py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg text-center transition duration-200 btn-hover shadow-md text-xs sm:text-sm flex items-center justify-center gap-2"

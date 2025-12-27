@@ -1,52 +1,66 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import { Facebook, Instagram, MessageCircle, Mail } from 'lucide-react';
+import React from 'react';
+import { MessageCircle, Mail, Facebook, Instagram } from 'lucide-react';
 
 export default function Footer() {
+    const currentYear = new Date().getFullYear();
+
     return (
-        <footer className="bg-white border-t-2 border-gray-200">
-            <div className="mx-auto w-full max-w-screen-xl px-4 py-8">
+        <footer className="bg-gradient-to-br from-slate-900 to-slate-800 border-t border-green-500/20">
+            <style>{`
+                .social-icon { transition: all 0.3s ease; }
+                .social-icon:hover { transform: translateY(-3px) scale(1.1); }
+            `}</style>
+
+            <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 py-8 sm:py-12">
                 
-                <hr className="mb-6 border-gray-200" />
-
-                {/* Footer Content */}
-                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                {/* Main Content */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
                     
-                    {/* Copyright */}
-                    <span className="text-sm text-gray-600 text-center md:text-left">
-                        © 2025
-                        <a href="#" className="text-green-600 hover:text-green-700 font-semibold ml-1">
-                            Anjali Beej Bhandar
-                        </a>
-                        . All Rights Reserved.
-                    </span>
+                    {/* Brand */}
+                    <div>
+                        <h3 className="text-xl font-bold text-white mb-2">🌾 Anjali Beej Bhandar</h3>
+                        <p className="text-gray-400 text-sm">Quality seeds for better harvest</p>
+                    </div>
 
-                    {/* Social Media Icons */}
-                    <div className="flex justify-center gap-4">
-                        
+                    {/* Links */}
+                    <div className="flex justify-center gap-6">
+                        <a href="/" className="text-gray-400 hover:text-green-400 text-sm transition">Home</a>
+                        <a href="/about" className="text-gray-400 hover:text-green-400 text-sm transition">About</a>
+                        <a href="/contact" className="text-gray-400 hover:text-green-400 text-sm transition">Contact</a>
+                    </div>
 
-                        {/* WhatsApp */}
+                    {/* Social Icons */}
+                    <div className="flex justify-center sm:justify-end gap-3">
                         <a
                             href="https://wa.me/9589259036"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="bg-green-500 hover:bg-green-600 text-white p-3 rounded-full transition duration-300 transform hover:scale-110 shadow-md"
-                            title="Message us on WhatsApp"
+                            className="social-icon bg-green-600 hover:bg-green-700 text-white p-2 rounded-full transition"
                         >
-                            <MessageCircle size={20} />
+                            <MessageCircle size={18} />
                         </a>
-
-                        {/* Email */}
                         <a
                             href="mailto:suneelpatel409@gmail.com"
-                            className="bg-red-500 hover:bg-red-600 text-white p-3 rounded-full transition duration-300 transform hover:scale-110 shadow-md"
-                            title="Email us"
+                            className="social-icon bg-red-600 hover:bg-red-700 text-white p-2 rounded-full transition"
                         >
-                            <Mail size={20} />
+                            <Mail size={18} />
                         </a>
-
+                        <a href="#" className="social-icon bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full transition">
+                            <Facebook size={18} />
+                        </a>
+                        <a href="#" className="social-icon bg-pink-600 hover:bg-pink-700 text-white p-2 rounded-full transition">
+                            <Instagram size={18} />
+                        </a>
                     </div>
                 </div>
+
+                {/* Divider */}
+                <hr className="border-gray-700 mb-6" />
+
+                {/* Copyright */}
+                <p className="text-center text-gray-400 text-sm">
+                    © {currentYear} <span className="text-green-400 font-semibold">Anjali Beej Bhandar</span>. All Rights Reserved.
+                </p>
             </div>
         </footer>
     );

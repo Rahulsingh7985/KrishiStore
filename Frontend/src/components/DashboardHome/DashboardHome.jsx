@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useCart from "../../hooks/useCart.jsx";  ; 
+import useCart from "../../hooks/useCart.jsx";;
 
 const CATEGORIES = [
   { key: "seed", label: "बीज", emoji: "🌱" },
@@ -12,7 +12,7 @@ const CATEGORIES = [
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  
+
   // Use the custom cart hook
   const {
     cartItems,
@@ -208,25 +208,35 @@ export default function Dashboard() {
         </div>
 
         {/* Categories */}
-        <div className="mb-8 sm:mb-10">
-          <h3 className="text-lg sm:text-2xl font-bold text-white mb-3 sm:mb-4">📂 श्रेणियाँ</h3>
-          <div className="flex gap-1.5 sm:gap-2 overflow-x-auto pb-3 scrollbar-hide">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat.key}
-                onClick={() => setActiveCategory(cat.key)}
-                className={`flex-shrink-0 p-2.5 sm:p-3 md:p-4 rounded-lg sm:rounded-xl font-semibold transition-all btn-scale whitespace-nowrap text-xs sm:text-xs md:text-sm ${
-                  activeCategory === cat.key
-                    ? "bg-gradient-to-br from-green-500 to-green-600 text-white shadow-lg"
-                    : "bg-slate-800/50 border border-green-500/20 text-gray-200 hover:border-green-500/50"
-                }`}
-              >
-                <div className="text-lg sm:text-2xl md:text-3xl mb-0.5 sm:mb-1">{cat.emoji}</div>
-                <div className="text-xs leading-tight max-w-12 sm:max-w-none">{cat.label}</div>
-              </button>
-            ))}
+        <div className="mb-6 sm:mb-10">
+          <h3 className="text-lg sm:text-2xl font-bold text-white mb-3 sm:mb-4 text-center sm:text-left">
+            📂 श्रेणियाँ
+          </h3>
+
+          <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 sm:pb-3 scrollbar-hide
+                  justify-start sm:justify-center">
+            {CATEGORIES.map((cat) => {
+              const active = activeCategory === cat.key;
+
+              return (
+                <button
+                  key={cat.key}
+                  onClick={() => setActiveCategory(cat.key)}
+                  className={`min-w-[90px] sm:min-w-fit px-4 sm:px-6 py-2 sm:py-3
+                      rounded-full font-semibold text-xs sm:text-base
+                      transition-all text-center whitespace-nowrap
+            ${active
+                      ? "bg-gradient-to-r from-green-500 to-emerald-500 text-white shadow-lg shadow-green-500/40 scale-105"
+                      : "bg-slate-800/70 text-gray-300 border border-green-500/30 hover:border-green-500 hover:text-white"
+                    }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
           </div>
         </div>
+
 
         {/* Sort */}
         <div className="mb-6 sm:mb-8 flex justify-between items-center gap-4">
@@ -428,7 +438,7 @@ export default function Dashboard() {
                   </span>
                 </div>
                 <a
-                  href={`https://wa.me/9936927006?text=${generateWhatsAppMessage()}`}
+                  href={`https://wa.me/9589259036?text=${generateWhatsAppMessage()}`}
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setShowCart(false)}

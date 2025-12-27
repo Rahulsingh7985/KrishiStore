@@ -62,7 +62,7 @@ export default function Contact() {
               EMAIL ADDRESS
             </h3>
             <p className="text-gray-500 text-sm">
-              rahulsingh835789@gmail.com
+              suneelpatel409@gmail.com
             </p>
           </div>
 
