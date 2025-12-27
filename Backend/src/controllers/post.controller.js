@@ -221,59 +221,72 @@ const deletePost = asyncHandler(async (req, res) => {
 const aiSuggestPost = asyncHandler(async (req, res) => {
   const { problem } = req.body;
 
+  // 1️⃣ Validate input
   if (!problem || problem.trim() === "") {
     throw new ApiError(400, "Problem/title is required");
   }
 
-  // 1️⃣ Fetch all published posts
+  // 2️⃣ Fetch all published products
   const posts = await Post.find(
     { isPublished: true },
     "title category description price"
   );
 
-  if (posts.length === 0) {
+  if (!posts || posts.length === 0) {
     throw new ApiError(404, "No products found in database");
   }
 
-  // 2️⃣ Prepare product list
+  // 3️⃣ Prepare product list with INDEX (important)
   const productList = posts
-    .map((p, i) => `${i + 1}. ${p.title} (Category: ${p.category}, Price: ₹${p.price})`)
+    .map(
+      (p, i) =>
+        `${i + 1}. ${p.title} | Category: ${p.category} | Price: ₹${p.price}`
+    )
     .join("\n");
 
-  // 3️⃣ Get AI suggestion with detailed info
-  const suggestionPrompt = `User problem: "${problem}"
+  // 4️⃣ AI prompt for BEST matching product
+  const suggestionPrompt = `
+User problem: "${problem}"
 
 Available products:
 ${productList}
 
-Suggest ONLY ONE product from the list. Reply with ONLY the product title.`;
+Rules:
+- Select the SINGLE BEST product that matches the user's problem
+- Reply with ONLY the product NUMBER (example: 1 or 2)
+- Do NOT include product name or explanation
+`;
 
-  // 4️⃣ Get product suggestion
-  const suggestedTitle = await getGroqResponse(suggestionPrompt);
-  const suggestedProduct = posts.find(
-    (p) => p.title.toLowerCase() === suggestedTitle.trim().toLowerCase()
-  );
+  // 5️⃣ Get AI response
+  const aiReply = await getGroqResponse(suggestionPrompt);
 
-  if (!suggestedProduct) {
-    throw new ApiError(404, "No suitable product found");
+  // 6️⃣ Extract product index safely
+  const selectedIndex = parseInt(aiReply.match(/\d+/)?.[0], 10);
+
+  if (!selectedIndex || !posts[selectedIndex - 1]) {
+    throw new ApiError(404, "AI could not find a suitable product");
   }
 
-  // 5️⃣ Get AI info about the suggested product
-  const infoPrompt = `Product: ${suggestedProduct.title}
+  const suggestedProduct = posts[selectedIndex - 1];
+
+  // 7️⃣ Get AI explanation for selected product
+  const infoPrompt = `
+Product: ${suggestedProduct.title}
 Category: ${suggestedProduct.category}
 Description: ${suggestedProduct.description}
+
 User problem: "${problem}"
 
-Provide 4 lines of info in this exact format:
+Provide EXACTLY 4 lines in this format:
 BENEFITS: [2-3 key benefits]
 USAGE: [how to use it]
 DOSAGE: [recommended quantity]
-REASON: [why suitable for the problem]`;
+REASON: [why this product solves the problem]
+`;
 
   const infoResponse = await getGroqResponse(infoPrompt);
 
-  // 6️⃣ Parse the text response
-  const lines = infoResponse.split("\n").filter((line) => line.trim());
+  // 8️⃣ Parse AI response
   const aiInfo = {
     benefits: "",
     usage: "",
@@ -281,24 +294,28 @@ REASON: [why suitable for the problem]`;
     reason: "",
   };
 
-  lines.forEach((line) => {
-    if (line.includes("BENEFITS:")) {
-      aiInfo.benefits = line.replace("BENEFITS:", "").trim();
-    } else if (line.includes("USAGE:")) {
-      aiInfo.usage = line.replace("USAGE:", "").trim();
-    } else if (line.includes("DOSAGE:")) {
-      aiInfo.dosage = line.replace("DOSAGE:", "").trim();
-    } else if (line.includes("REASON:")) {
-      aiInfo.reason = line.replace("REASON:", "").trim();
-    }
-  });
+  infoResponse
+    .split("\n")
+    .map((line) => line.trim())
+    .forEach((line) => {
+      if (line.startsWith("BENEFITS:")) {
+        aiInfo.benefits = line.replace("BENEFITS:", "").trim();
+      } else if (line.startsWith("USAGE:")) {
+        aiInfo.usage = line.replace("USAGE:", "").trim();
+      } else if (line.startsWith("DOSAGE:")) {
+        aiInfo.dosage = line.replace("DOSAGE:", "").trim();
+      } else if (line.startsWith("REASON:")) {
+        aiInfo.reason = line.replace("REASON:", "").trim();
+      }
+    });
 
+  // 9️⃣ Final response
   return res.status(200).json(
     new ApiResponse(
       200,
       {
         suggestion: suggestedProduct.title,
-        aiInfo: aiInfo,
+        aiInfo,
         product: suggestedProduct,
       },
       "AI suggestion generated successfully"
