@@ -184,7 +184,13 @@ export default function Dashboard() {
             onClick={() => setShowCart(!showCart)}
             className="relative px-3 sm:px-4 py-2 bg-green-600 hover:active:bg-green-700 text-white rounded-lg font-semibold transition btn-scale flex items-center gap-1 sm:gap-2 text-sm sm:text-base"
           >
-            🛒 <span className="hidden sm:inline">कार्ट</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+              className="w-5 h-5 sm:w-6 sm:h-6 fill-current"
+            >
+              <path d="M351.9 329.506H206.81l-3.072-12.56H368.16l26.63-116.019-217.23-26.04-9.952-58.09h-50.4v21.946h31.894l35.233 191.246a32.927 32.927 0 1 0 36.363 21.462h100.244a32.825 32.825 0 1 0 30.957-21.945zM181.427 197.45l186.51 22.358-17.258 75.195H198.917z" />
+            </svg> <span className="hidden sm:inline">कार्ट</span>
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">
                 {cartCount}
@@ -330,7 +336,13 @@ export default function Dashboard() {
                           onClick={() => handleAddToCart(product)}
                           className="p-1 sm:p-1.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded hover:shadow-lg hover:shadow-green-500/50 transition text-sm sm:text-base btn-scale"
                         >
-                          🛒
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 512 512"
+                            className="w-5 h-5 sm:w-6 sm:h-6 fill-current"
+                          >
+                            <path d="M351.9 329.506H206.81l-3.072-12.56H368.16l26.63-116.019-217.23-26.04-9.952-58.09h-50.4v21.946h31.894l35.233 191.246a32.927 32.927 0 1 0 36.363 21.462h100.244a32.825 32.825 0 1 0 30.957-21.945zM181.427 197.45l186.51 22.358-17.258 75.195H198.917z" />
+                          </svg>
                         </button>
                       </div>
                     </div>
