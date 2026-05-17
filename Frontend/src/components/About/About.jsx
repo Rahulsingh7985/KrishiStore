@@ -33,7 +33,7 @@ const About = () => {
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <h3 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-green-400 via-emerald-400 to-green-400 bg-clip-text text-transparent mb-4 slide-up">
-             About Anjali Beej Bhandar 
+             About Krishi Store 
           </h3>
           <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto slide-up">
             Providing trusted agricultural seeds and farming solutions for farmers
