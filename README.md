@@ -1,5 +1,5 @@
 beej-bhandaar
-Anjali Beej Bhandar Hey! This is Anjali Beej Bhandar - an e-commerce platform I built for selling agricultural seeds and farming supplies. It's a full-stack MERN project where farmers can browse products, and admins can manage everything from a dashboard. Check it out: https://anjali-beejbhandar.vercel.app
+Anjali Beej Bhandar Hey! This is Anjali Beej Bhandar - an e-commerce platform I built for selling agricultural seeds and farming supplies. It's a full-stack MERN project where farmers can browse products, and admins can manage everything from a dashboard. Check it out: https://krishistore.vercel.app/
 
 What Can You Do Here? For Regular Users
 
