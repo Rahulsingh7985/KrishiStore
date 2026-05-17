@@ -41,7 +41,7 @@ export default function HomeBeforeLogin() {
           <div className="space-y-6 slide-up">
             <div className="inline-block">
               <span className="bg-green-500/20 border border-green-500/30 text-green-400 px-4 py-2 rounded-full text-sm font-semibold">
-                🌾 Welcome to Anjali Beejbhandar
+                🌾 Welcome to Krishi Store
               </span>
             </div>
 
@@ -56,7 +56,7 @@ export default function HomeBeforeLogin() {
             </h1>
 
             <p className="text-lg text-gray-300 leading-relaxed max-w-lg">
-              Anjali Beej Bhandar brings you trusted seeds, fertilizers, and agricultural solutions directly from verified suppliers. Thousands of farmers trust us for quality products and exceptional service.
+              Krishi Store brings you trusted seeds, fertilizers, and agricultural solutions directly from verified suppliers. Thousands of farmers trust us for quality products and exceptional service.
             </p>
 
             {/* Stats */}
@@ -111,7 +111,7 @@ export default function HomeBeforeLogin() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Why Choose Anjali Beej Bhandar?
+              Why Choose Krishi Store?
             </h2>
             <p className="text-gray-400 text-lg max-w-2xl mx-auto">
               We're committed to providing farmers with the best quality products and support
@@ -199,7 +199,7 @@ export default function HomeBeforeLogin() {
               Ready to Transform Your Harvest?
             </h2>
             <p className="text-lg text-green-100 max-w-2xl mx-auto">
-              Join thousands of successful farmers using Anjali Beej Bhandar. Start your journey to better yields today.
+              Join thousands of successful farmers using Krishi Store. Start your journey to better yields today.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <Link
@@ -218,16 +218,6 @@ export default function HomeBeforeLogin() {
           </div>
         </div>
       </section>
-
-      {/* Footer Section */}
-      <footer className="border-t border-green-500/20 py-12 px-4 sm:px-6 text-center text-gray-400">
-        <p className="mb-2">© 2025 Anjali Beej Bhandar • Empowering Farmers, Ensuring Quality</p>
-        <div className="flex justify-center gap-6 text-sm mt-4">
-          <Link to="/about" className="hover:text-green-400 transition">About</Link>
-          <Link to="/contact" className="hover:text-green-400 transition">Contact</Link>
-          <a href="#" className="hover:text-green-400 transition">Privacy Policy</a>
-        </div>
-      </footer>
     </div>
   );
 }

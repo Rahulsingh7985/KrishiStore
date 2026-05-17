@@ -54,7 +54,7 @@ export default function ModernHeader() {
             </div>
             <div className="hidden sm:block">
               <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-                अंजलि बीज भंडार
+                𝙆𝙧𝙞𝙨𝙝𝙞 𝙎𝙩𝙤𝙧𝙚
               </h1>
               <p className="text-xs text-gray-400">आपकी कृषि समाधान</p>
             </div>

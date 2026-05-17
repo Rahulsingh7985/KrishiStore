@@ -18,7 +18,7 @@ export default function Footer() {
                     
                     {/* Brand */}
                     <div>
-                        <h3 className="text-xl font-bold text-white mb-2">🌾 Anjali Beej Bhandar</h3>
+                        <h3 className="text-xl font-bold text-white mb-2">🌾 𝘒𝘳𝘪𝘴𝘩𝘪 𝘚𝘵𝘰𝘳𝘦</h3>
                         <p className="text-gray-400 text-sm">Quality seeds for better harvest</p>
                     </div>
 
@@ -59,7 +59,7 @@ export default function Footer() {
 
                 {/* Copyright */}
                 <p className="text-center text-gray-400 text-sm">
-                    © {currentYear} <span className="text-green-400 font-semibold">Anjali Beej Bhandar</span>. All Rights Reserved.
+                    © {currentYear} <span className="text-green-400 font-semibold">𝘒𝘳𝘪𝘴𝘩𝘪 𝘚𝘵𝘰𝘳𝘦</span>. All Rights Reserved.
                 </p>
             </div>
         </footer>
